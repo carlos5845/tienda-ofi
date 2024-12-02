@@ -1,11 +1,21 @@
-import { ClientesTable } from "@/components/componentes-cliente/clientes-table";
+"use client";
 
+import React from "react";
+import ClientForm from "@/components/componentes-cliente/ClientForm";
+import ClientTable from "@/components/componentes-cliente/ClientTable";
 export default function ClientesPage() {
   return (
-    <div className="flex-1 space-y-4 p-8 pt-6">
-      <h2 className="text-3xl font-bold tracking-tight">Clientes</h2>
-      <div className="container mx-auto py-10">
-        <ClientesTable />
+    <div>
+      <h1 className="text-4xl font-bold mb-6">Gestión de Clientes</h1>
+
+      {/* Componente del formulario */}
+      <div className="mb-10">
+        <ClientForm />
+      </div>
+
+      {/* Componente de la tabla */}
+      <div>
+        <ClientTable />
       </div>
     </div>
   );
