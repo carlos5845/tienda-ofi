@@ -10,8 +10,8 @@ import { Button } from "@/components/ui/button";
 const navItems = [
   { name: "Clientes", href: "/protected/clientes", icon: Users },
   { name: "Ventas", href: "/protected/ventas", icon: ShoppingCart },
-  { name: "Inventario", href: "/inventario", icon: Package },
-  { name: "Facturación", href: "/facturacion", icon: FileText },
+  { name: "Inventario", href: "/protected/inventario", icon: Package },
+  { name: "Facturación", href: "/protected/facturacion", icon: FileText },
 ];
 
 export function DashboardNavbar() {

@@ -15,7 +15,7 @@ const data = [
 
 export function GraficoVentas() {
   return (
-    <Card className="col-span-4">
+    <Card className="col-span-3">
       <CardHeader>
         <CardTitle>Resumen de Ventas</CardTitle>
       </CardHeader>
