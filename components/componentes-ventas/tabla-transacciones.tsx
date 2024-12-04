@@ -9,83 +9,62 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-
-type Transaccion = {
-  id: string;
-  cliente: string;
-  monto: number;
-  estado: "completada" | "pendiente" | "cancelada";
-  fecha: string;
-};
-
-const transacciones: Transaccion[] = [
-  {
-    id: "1",
-    cliente: "Juan Pérez",
-    monto: 150.0,
-    estado: "completada",
-    fecha: "2023-07-01",
-  },
-  {
-    id: "2",
-    cliente: "María García",
-    monto: 75.5,
-    estado: "pendiente",
-    fecha: "2023-07-02",
-  },
-  {
-    id: "3",
-    cliente: "Carlos López",
-    monto: 200.0,
-    estado: "completada",
-    fecha: "2023-07-03",
-  },
-  {
-    id: "4",
-    cliente: "Ana Martínez",
-    monto: 50.0,
-    estado: "cancelada",
-    fecha: "2023-07-04",
-  },
-  {
-    id: "5",
-    cliente: "Pedro Sánchez",
-    monto: 125.75,
-    estado: "completada",
-    fecha: "2023-07-05",
-  },
-];
+import { supabase } from "@/lib/supabase";
+import { useState, useEffect } from "react";
+import { Venta } from "@/types/database"; // Asegúrate de importar el tipo correcto
 
 export function TablaTransacciones() {
+  const [ventas, setVentas] = useState<Venta[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchVentas = async () => {
+    setLoading(true);
+    const { data, error } = await supabase.from("ventas").select("*");
+    if (error) {
+      console.error("Error al cargar ventas:", error);
+      return;
+    }
+    setVentas(data || []);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchVentas();
+  }, []);
+
+  if (loading) {
+    return <p>Cargando ventas...</p>;
+  }
+
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Cliente</TableHead>
+          <TableHead>Cliente ID</TableHead>
           <TableHead>Monto</TableHead>
           <TableHead>Estado</TableHead>
           <TableHead>Fecha</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {transacciones.map((transaccion) => (
-          <TableRow key={transaccion.id}>
-            <TableCell>{transaccion.cliente}</TableCell>
-            <TableCell>${transaccion.monto.toFixed(2)}</TableCell>
+        {ventas.map((venta) => (
+          <TableRow key={venta.venta_id}>
+            <TableCell>{venta.cliente_id}</TableCell>
+            <TableCell>${venta.monto.toFixed(2)}</TableCell>
             <TableCell>
               <Badge
                 variant={
-                  transaccion.estado === "completada"
+                  venta.estado === "completada"
                     ? "success"
-                    : transaccion.estado === "pendiente"
-                      ? "warning"
-                      : "destructive"
+                    : venta.estado === "pendiente"
+                    ? "warning"
+                    : "destructive"
                 }
               >
-                {transaccion.estado}
+                {venta.estado}
               </Badge>
             </TableCell>
-            <TableCell>{transaccion.fecha}</TableCell>
+            <TableCell>{venta.fecha}</TableCell>
           </TableRow>
         ))}
       </TableBody>
