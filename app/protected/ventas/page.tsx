@@ -46,8 +46,7 @@ export default function VentasPage() {
       <ResumenVentas />
 
       {/* Gráfico y transacciones */}
-      <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-6">
-        <GraficoVentas />
+      <div className="grid gap-4 ">
         <Card className="col-span-3">
           <CardHeader>
             <CardTitle>Transacciones Recientes</CardTitle>

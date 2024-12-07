@@ -3,7 +3,16 @@ import { TablaProductos } from "@/components/componentes-inventario/tabla-produc
 import { GraficoProductosVendidos } from "@/components/componentes-inventario/grafico-productos-vendidos";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
-
+import InventarioForm from "@/components/componentes-inventario/inventarioform";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
 export default function InventarioPage() {
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
@@ -11,17 +20,28 @@ export default function InventarioPage() {
         <h2 className="text-3xl font-bold tracking-tight">
           Inventario de Ropa
         </h2>
-        <div className="flex items-center space-x-2">
-          <Button>
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Agregar Prenda
-          </Button>
-        </div>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline">Agregar venta</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Agregar Nueva Venta</DialogTitle>
+              <DialogDescription>
+                Make changes to your profile here. Click save when you're done.
+              </DialogDescription>
+            </DialogHeader>
+            {/* Formulario para agregar nuevas ventas */}
+            <div className="mb-8">
+              <InventarioForm />
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
       <ResumenInventario />
       <div className="grid gap-4 grid-cols-1">
         <TablaProductos />
-        <GraficoProductosVendidos/>
+        <GraficoProductosVendidos />
       </div>
     </div>
   );

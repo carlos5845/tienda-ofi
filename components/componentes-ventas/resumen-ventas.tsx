@@ -1,10 +1,12 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowUpIcon, ArrowDownIcon } from 'lucide-react'
+import { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowUpIcon, ArrowDownIcon } from "lucide-react";
+import { supabase } from "@/lib/supabase"; // Asegúrate de configurar Supabase correctamente
 
 interface EstadisticaProps {
-  title: string
-  value: string
-  change: number
+  title: string;
+  value: string;
+  change: number;
 }
 
 function Estadistica({ title, value, change }: EstadisticaProps) {
@@ -21,21 +23,83 @@ function Estadistica({ title, value, change }: EstadisticaProps) {
       <CardContent>
         <div className="text-2xl font-bold">{value}</div>
         <p className="text-xs text-muted-foreground">
-          {change > 0 ? "+" : ""}{change}% desde el último mes
+          {change > 0 ? "+" : ""}
+          {change}% desde el último mes
         </p>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 export function ResumenVentas() {
+  const [estadisticas, setEstadisticas] = useState({
+    ventasTotales: "$0",
+    nuevosClientes: "0",
+    ticketPromedio: "$0",
+    tasaCancelacion: "0",
+  });
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const cargarEstadisticas = async () => {
+      try {
+        // Llamar a las funciones SQL de Supabase
+        const { data: ventasTotales } = await supabase.rpc(
+          "obtener_ventas_totales"
+        );
+        const { data: nuevosClientes } = await supabase.rpc(
+          "obtener_nuevos_clientes"
+        );
+        const { data: ticketPromedio } = await supabase.rpc(
+          "obtener_ticket_promedio"
+        );
+        const { data: tasaCancelacion } = await supabase.rpc(
+          "obtener_tasa_cancelaciones"
+        );
+        // Actualizar el estado con los datos obtenidos
+        setEstadisticas({
+          ventasTotales: `$${ventasTotales.toFixed(2)}`,
+          nuevosClientes: `${nuevosClientes}`,
+          ticketPromedio: `$${ticketPromedio.toFixed(2)}`,
+          tasaCancelacion: `${tasaCancelacion.toFixed(2)}`,
+        });
+      } catch (error) {
+        console.error("Error al cargar estadísticas:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    cargarEstadisticas();
+  }, []);
+
+  if (loading) {
+    return <div>Cargando estadísticas...</div>;
+  }
+
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <Estadistica title="Ventas Totales" value="$15,231.89" change={20.1} />
-      <Estadistica title="Nuevos Clientes" value="145" change={-5.4} />
-      <Estadistica title="Tasa de Conversión" value="3.24%" change={2.3} />
-      <Estadistica title="Ticket Promedio" value="$105.12" change={12.7} />
+      <Estadistica
+        title="Ventas Totales"
+        value={estadisticas.ventasTotales}
+        change={20.1}
+      />
+      <Estadistica
+        title="Nuevos Clientes"
+        value={estadisticas.nuevosClientes}
+        change={1}
+      />
+      <Estadistica
+        title="Ticket Promedio"
+        value={estadisticas.ticketPromedio}
+        change={12.7}
+      />
+      <Estadistica
+        title="Tasa de Cancelacion"
+        value={estadisticas.tasaCancelacion}
+        change={13.5}
+      />
     </div>
-  )
+  );
 }
-
