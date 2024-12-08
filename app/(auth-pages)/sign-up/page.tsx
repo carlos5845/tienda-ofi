@@ -30,17 +30,17 @@ export default async function Signup(props: {
         </p>
         <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
           <Label htmlFor="email">Email</Label>
-          <Input name="email" placeholder="you@example.com" required />
+          <Input name="email" placeholder="user@ejemplo.com" required />
           <Label htmlFor="password">Contraseña</Label>
           <Input
             type="password"
             name="password"
-            placeholder="Your password"
+            placeholder="Tu contraseña"
             minLength={6}
             required
           />
           <SubmitButton formAction={signUpAction} pendingText="Signing up...">
-            Sign up
+            Registrar
           </SubmitButton>
           <FormMessage message={searchParams} />
         </div>

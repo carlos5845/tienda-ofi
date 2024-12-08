@@ -10,7 +10,7 @@ export default function DashboardLayout({
       <aside className="w-40 bg-gray-100 p-4">
         <DashboardNavbar />
       </aside>
-      <main className="flex-1 p-6 overflow-auto bg-white w-full">
+      <main className="flex-1 p-6 overflow-auto bg-white w-screen">
         {children}
       </main>
     </div>

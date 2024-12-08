@@ -8,6 +8,15 @@ import {
   TableHead,
   TableCell,
 } from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
 import { Cliente } from "@/types/database";
@@ -84,80 +93,6 @@ export default function ClientTable() {
 
   return (
     <div>
-      {/* Formulario de edición */}
-      {editingCliente ? (
-        <div className="p-4 border rounded shadow mb-4">
-          <h3 className="text-lg font-bold mb-2">Editar Cliente</h3>
-          <div className="space-y-4">
-            <div>
-              <label>Nombre</label>
-              <Input
-                type="text"
-                className="input"
-                value={editingCliente.nombre}
-                onChange={(e) =>
-                  setEditingCliente({
-                    ...editingCliente,
-                    nombre: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div>
-              <label>Email</label>
-              <Input
-                type="email"
-                className="input"
-                value={editingCliente.email}
-                onChange={(e) =>
-                  setEditingCliente({
-                    ...editingCliente,
-                    email: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div>
-              <label>Teléfono</label>
-              <Input
-                type="text"
-                className="input"
-                value={editingCliente.telefono}
-                onChange={(e) =>
-                  setEditingCliente({
-                    ...editingCliente,
-                    telefono: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div>
-              <label>Fecha de Registro</label>
-              <Input
-                type="date"
-                className="input"
-                value={editingCliente.fecha_registro}
-                onChange={(e) =>
-                  setEditingCliente({
-                    ...editingCliente,
-                    fecha_registro: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div className="flex gap-4">
-              <Button onClick={updateCliente}>Guardar Cambios</Button>
-              <Button
-                onClick={() => setEditingCliente(null)}
-                variant="secondary"
-              >
-                Cancelar
-              </Button>
-            </div>
-          </div>
-        </div>
-      ) : null}
-
       {/* Tabla de clientes */}
       <Table>
         <TableCaption>Lista de clientes registrados.</TableCaption>
@@ -179,13 +114,100 @@ export default function ClientTable() {
                 <TableCell>{cliente.telefono}</TableCell>
                 <TableCell>{cliente.fecha_registro}</TableCell>
                 <TableCell>
-                  <Button
-                    onClick={() => setEditingCliente(cliente)}
-                    variant="secondary"
-                    className="mr-2"
-                  >
-                    Editar
-                  </Button>
+                  {/* Botón que abre el Dialog para editar */}
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button
+                        onClick={() => setEditingCliente(cliente)}
+                        variant="secondary"
+                        className="mr-2"
+                      >
+                        Editar
+                      </Button>
+                    </DialogTrigger>
+
+                    <DialogContent className="sm:max-w-[425px]">
+                      <DialogHeader>
+                        <DialogTitle>Editar Cliente</DialogTitle>
+                        <DialogDescription>
+                          Realiza los cambios en el perfil del cliente.
+                        </DialogDescription>
+                      </DialogHeader>
+                      {/* Formulario dentro del Dialog */}
+                      <div className="space-y-4">
+                        <div>
+                          <label>Nombre</label>
+                          <Input
+                            type="text"
+                            value={editingCliente?.nombre || ""}
+                            onChange={(e) =>
+                              setEditingCliente({
+                                ...editingCliente!,
+                                nombre: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                        <div>
+                          <label>Email</label>
+                          <Input
+                            type="email"
+                            value={editingCliente?.email || ""}
+                            onChange={(e) =>
+                              setEditingCliente({
+                                ...editingCliente!,
+                                email: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                        <div>
+                          <label>Teléfono</label>
+                          <Input
+                            type="text"
+                            value={editingCliente?.telefono || ""}
+                            onChange={(e) =>
+                              setEditingCliente({
+                                ...editingCliente!,
+                                telefono: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                        <div>
+                          <label>Fecha de Registro</label>
+                          <Input
+                            type="date"
+                            value={editingCliente?.fecha_registro || ""}
+                            onChange={(e) =>
+                              setEditingCliente({
+                                ...editingCliente!,
+                                fecha_registro: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <Button
+                          onClick={() => {
+                            updateCliente();
+                            setEditingCliente(null); // Cierra el formulario
+                          }}
+                        >
+                          Guardar Cambios
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          onClick={() => setEditingCliente(null)} // Cierra el dialog
+                        >
+                          Cancelar
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+
+                  {/* Botón de Eliminar */}
                   <Button
                     onClick={() => deleteCliente(cliente.cliente_id)}
                     disabled={loading}

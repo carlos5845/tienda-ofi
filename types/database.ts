@@ -28,12 +28,14 @@ export type Inventario = {
 };
 
 // Factura
-export type Factura = {
+export type Facturas = {
   factura_id: number;
   numero_factura: string;
   cliente_id: number;
   monto_total: number;
+  estado: string;
   fecha_emision: string;
+  fecha_vencimiento: string;
 };
 
 // DetalleVenta
@@ -43,17 +45,6 @@ export type DetalleVenta = {
   producto_id: number;
   cantidad: number;
   subtotal: number;
-};
-//ResumenVentas
-export type ResumenVentas = {
-  ventastotales: number; // Para el campo SUM(monto)
-  nuevosclientes: number; // Para el campo COUNT(DISTINCT cliente_id)
-  ticketpromedio: number; // Para el campo SUM(monto) / COUNT(*)
-  tasaconversion: number; // Para el campo COUNT(DISTINCT cliente_id) / COUNT(*)
-  cambioventas: number; // Placeholder, ajusta según tu lógica real
-  cambioclientes: number; // Placeholder, ajusta según tu lógica real
-  cambioconversion: number; // Placeholder, ajusta según tu lógica real
-  cambioticket: number; // Placeholder, ajusta según tu lógica real
 };
 
 //VentasMensuales

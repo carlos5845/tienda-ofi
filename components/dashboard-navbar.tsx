@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Users, ShoppingCart, Package, FileText } from "lucide-react";
+import { Users, ShoppingCart, Package, FileText, House } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
+  { name: "Inicio", href: "/", icon: House },
   { name: "Clientes", href: "/protected/clientes", icon: Users },
   { name: "Ventas", href: "/protected/ventas", icon: ShoppingCart },
   { name: "Inventario", href: "/protected/inventario", icon: Package },
@@ -18,7 +19,7 @@ export function DashboardNavbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1">
+    <nav className="flex  flex-col lg:space-x-0 lg:space-y-1">
       {navItems.map((item) => (
         <Button
           key={item.href}
