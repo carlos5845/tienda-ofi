@@ -11,16 +11,17 @@ export default function ClientForm() {
   const [telefono, setTelefono] = useState("");
   const [email, setEmail] = useState("");
   const [fecha_registro, setFechaRegistro] = useState("");
+  const [estado, setEstado] = useState("");
 
   const handleSubmit = async () => {
-    if (!nombre || !telefono || !email || !fecha_registro) {
+    if (!nombre || !telefono || !email || !fecha_registro || !estado) {
       alert("Por favor, completa todos los campos.");
       return;
     }
 
     const { error } = await supabase
       .from("clientes")
-      .insert([{ nombre, telefono, email, fecha_registro }]);
+      .insert([{ nombre, telefono, email, fecha_registro, estado }]);
 
     if (error) {
       console.error("Error al agregar cliente:", error);
@@ -31,11 +32,12 @@ export default function ClientForm() {
       setTelefono("");
       setEmail("");
       setFechaRegistro("");
+      setEstado("");
     }
   };
 
   return (
-    <div className="border p-4 rounded shadow">
+    <div className="">
       <form className="space-y-4">
         <div>
           <Label htmlFor="nombre">Nombre</Label>
@@ -73,6 +75,19 @@ export default function ClientForm() {
             value={fecha_registro}
             onChange={(e) => setFechaRegistro(e.target.value)}
           />
+        </div>
+        <div>
+          <Label htmlFor="estado">Estado</Label>
+          <select
+            id="estado"
+            value={estado}
+            onChange={(e) => setEstado(e.target.value)}
+            className="block w-full p-2 border rounded-md"
+          >
+            <option value="Nuevo">Nuevo</option>
+            <option value="Frecuente">Frecuente</option>
+            <option value="VIP">VIP</option>
+          </select>
         </div>
         <Button onClick={handleSubmit}>Agregar Cliente</Button>
       </form>

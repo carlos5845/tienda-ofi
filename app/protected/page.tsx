@@ -4,6 +4,7 @@ import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { DashboardNavbar } from "@/components/dashboard-navbar";
+import DashboardWelcome from "@/components/componentes-inicio/incio";
 export default async function ProtectedPage() {
   const supabase = await createClient();
 
@@ -16,8 +17,8 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="flex-1 flex flex-col gap-12 h-full bg-green-300">
-      <h1 className="text-2xl font-bold">Bienvenido al Dashboard</h1>
+    <div className="">
+      <DashboardWelcome />
     </div>
   );
 }

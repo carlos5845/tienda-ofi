@@ -8,6 +8,7 @@ import {
   TableHead,
   TableCell,
 } from "@/components/ui/table";
+import { MoreHorizontal, Search } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -22,11 +23,15 @@ import { supabase } from "@/lib/supabase";
 import { Cliente } from "@/types/database";
 import { Input } from "../ui/input";
 import { Label } from "@radix-ui/react-select";
+import { Badge } from "../ui/badge";
 export default function ClientTable() {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(false);
+  const [searchClients, setSearchClients] = useState("");
   const [editingCliente, setEditingCliente] = useState<Cliente | null>(null);
-
+  const filterClients = clientes.filter((cliente) =>
+    cliente.nombre.toLowerCase().includes(searchClients.toLowerCase())
+  );
   const fetchClientes = async () => {
     const { data, error } = await supabase.from("clientes").select("*");
     if (error) {
@@ -72,6 +77,7 @@ export default function ClientTable() {
         email: editingCliente.email,
         telefono: editingCliente.telefono,
         fecha_registro: editingCliente.fecha_registro,
+        estado: editingCliente.estado,
       })
       .eq("cliente_id", editingCliente.cliente_id);
 
@@ -93,6 +99,17 @@ export default function ClientTable() {
 
   return (
     <div>
+      <div className="flex items-center py-4">
+        <Input
+          placeholder=" Buscar clientes...."
+          value={searchClients}
+          onChange={(e) => setSearchClients(e.target.value)}
+        />
+        <Button className="ml-4" onClick={fetchClientes} disabled={loading}>
+          <Search className="mr-2 h-4 w-4" />
+          {loading ? "Cargando..." : "Buscar"}
+        </Button>
+      </div>
       {/* Tabla de clientes */}
       <Table>
         <TableCaption>Lista de clientes registrados.</TableCaption>
@@ -102,17 +119,32 @@ export default function ClientTable() {
             <TableHead>Email</TableHead>
             <TableHead>Teléfono</TableHead>
             <TableHead>Fecha de Registro</TableHead>
+            <TableHead>Estado</TableHead>
             <TableHead>Acciones</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {clientes.length > 0 ? (
-            clientes.map((cliente) => (
+          {filterClients.length > 0 ? (
+            filterClients.map((cliente) => (
               <TableRow key={cliente.cliente_id}>
                 <TableCell>{cliente.nombre}</TableCell>
                 <TableCell>{cliente.email}</TableCell>
                 <TableCell>{cliente.telefono}</TableCell>
                 <TableCell>{cliente.fecha_registro}</TableCell>
+                <TableCell>
+                  <Badge
+                    variant={
+                      cliente.estado === "nuevo"
+                        ? "success"
+                        : cliente.estado === "Frecuente"
+                          ? "warning"
+                          : "vip"
+                    }
+                  >
+                    {cliente.estado}
+                  </Badge>
+                </TableCell>
+
                 <TableCell>
                   {/* Botón que abre el Dialog para editar */}
                   <Dialog>
@@ -186,6 +218,23 @@ export default function ClientTable() {
                               })
                             }
                           />
+                        </div>
+                        <div>
+                          <label>Estado</label>
+                          <select
+                            value={editingCliente?.estado || ""}
+                            onChange={(e) =>
+                              setEditingCliente({
+                                ...editingCliente!,
+                                estado: e.target.value,
+                              })
+                            }
+                            className="block w-full p-2 border rounded-md"
+                          >
+                            <option value="nuevo">Nuevo</option>
+                            <option value="VIP">VIP</option>
+                            <option value="Frecuente">Frecuente</option>
+                          </select>
                         </div>
                       </div>
                       <DialogFooter>

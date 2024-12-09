@@ -8,6 +8,8 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
+        botonn:
+          "border-transparent bg-cloud-burst-600 text-primary-foreground hover:bg-primary/80",
         default:
           "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
         secondary:
@@ -19,6 +21,7 @@ const badgeVariants = cva(
           "border-transparent bg-green-500 text-white hover:bg-green-600", // Ajuste aquí
         warning:
           "border-transparent bg-yellow-300  text-warning-foreground hover:bg-warning/80",
+        vip: "border-transparent bg-violet-300  text-warning-foreground hover:bg-warning/80",
       },
     },
     defaultVariants: {

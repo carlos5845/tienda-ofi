@@ -87,7 +87,7 @@ export function TablaProductos() {
   }, []);
 
   return (
-    <div>
+    <div className="">
       <Dialog
         open={!!productoEditando}
         onOpenChange={(open) => !open && setProductoEditando(null)}
@@ -107,7 +107,7 @@ export function TablaProductos() {
         </DialogContent>
       </Dialog>
 
-      <div className="flex items-center py-4">
+      <div className="flex items-center justify-end py-4">
         <Input
           placeholder="Buscar productos..."
           value={searchTerm}

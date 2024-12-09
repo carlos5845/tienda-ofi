@@ -18,28 +18,26 @@ export default async function AuthButton() {
         <div className="flex gap-4 items-center">
           <div>
             <Badge
-              variant={"default"}
+              variant={"botonn"}
               className="font-normal pointer-events-none"
-            >
-              Please update .env.local file with anon key and url
-            </Badge>
+            ></Badge>
           </div>
           <div className="flex gap-2">
             <Button
               asChild
               size="sm"
-              variant={"outline"}
+              variant={"destructive"}
               disabled
-              className="opacity-75 cursor-none pointer-events-none"
+              className="opacity-75 cursor-none pointer-events-none "
             >
               <Link href="/sign-in">Iniciar sesión</Link>
             </Button>
             <Button
               asChild
               size="sm"
-              variant={"default"}
+              variant={"destructive"}
               disabled
-              className="opacity-75 cursor-none pointer-events-none"
+              className="opacity-75 cursor-none pointer-events-none "
             >
               <Link href="/sign-up">Registrarse</Link>
             </Button>
@@ -59,10 +57,16 @@ export default async function AuthButton() {
     </div>
   ) : (
     <div className="flex gap-2">
-      <Button asChild size="sm" variant={"outline"}>
-        <Link href="/sign-in">Iniciar Sesion</Link>
+      <Button asChild size="sm" disabled className="bg-white border-2 text-black hover:bg-transparent ">
+        <Link href="/sign-in">Iniciar sesión</Link>
       </Button>
-      <Button asChild size="sm" variant={"default"}>
+
+      <Button
+        asChild
+        size="sm"
+        variant={"default"}
+        className=" bg-cloud-burst-600 text-white hover:bg-cloud-burst-500"
+      >
         <Link href="/sign-up">Registrarse</Link>
       </Button>
     </div>

@@ -4,6 +4,7 @@ export type Cliente = {
   telefono: string;
   email: string;
   fecha_registro: string;
+  estado: string;
 };
 // Cliente
 

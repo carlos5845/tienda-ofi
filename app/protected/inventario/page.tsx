@@ -22,11 +22,11 @@ export default function InventarioPage() {
         </h2>
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="outline">Agregar venta</Button>
+            <Button variant="outline">Agregar producto</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Agregar Nueva Venta</DialogTitle>
+              <DialogTitle>Agregar nuevo producto</DialogTitle>
               <DialogDescription>
                 Make changes to your profile here. Click save when you're done.
               </DialogDescription>
