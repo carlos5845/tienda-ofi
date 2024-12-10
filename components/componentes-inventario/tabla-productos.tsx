@@ -95,7 +95,6 @@ export function TablaProductos() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Editar Producto</DialogTitle>
-          
           </DialogHeader>
           {productoEditando && (
             <EditarProducto

@@ -1,17 +1,50 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import { supabase } from "@/lib/supabase";
 
-const data = [
-  { name: 'Camiseta Básica', ventas: 250 },
-  { name: 'Jeans Slim Fit', ventas: 180 },
-  { name: 'Vestido de Noche', ventas: 120 },
-  { name: 'Chaqueta de Cuero', ventas: 90 },
-  { name: 'Zapatos Deportivos', ventas: 150 },
-]
-
+import { ProductoVendido } from "@/types/database";
 export function GraficoProductosVendidos() {
+  const [data, setData] = useState([]);
+
+  // Función para obtener los datos desde Supabase
+  const fetchData = async () => {
+    const { data, error } = await supabase.rpc(
+      "obtener_top_10_productos_vendidos"
+    );
+
+    if (error) {
+      console.error(
+        "Error obteniendo los productos más vendidos:",
+        error.message
+      );
+      return;
+    }
+
+    // Ajusta los datos para el gráfico
+    const formattedData = data.map((item: ProductoVendido) => ({
+      name: item.producto, // Producto
+      ventas: Number(item.total_vendido), // Total vendido convertido a número
+    }));
+
+    setData(formattedData);
+  };
+
+  // Llamada a fetchData al montar el componente
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <Card>
       <CardHeader>
@@ -29,6 +62,5 @@ export function GraficoProductosVendidos() {
         </ResponsiveContainer>
       </CardContent>
     </Card>
-  )
+  );
 }
-

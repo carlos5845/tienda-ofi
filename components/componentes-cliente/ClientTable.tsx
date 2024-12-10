@@ -10,6 +10,13 @@ import {
 } from "@/components/ui/table";
 import { MoreHorizontal, Search } from "lucide-react";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -146,124 +153,134 @@ export default function ClientTable() {
                 </TableCell>
 
                 <TableCell>
-                  {/* Botón que abre el Dialog para editar */}
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        onClick={() => setEditingCliente(cliente)}
-                        variant="secondary"
-                        className="mr-2"
-                      >
-                        Editar
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" className="h-8 w-8 p-0">
+                        <span className="sr-only">Abrir menú</span>
+                        <MoreHorizontal className="h-4 w-4" />
                       </Button>
-                    </DialogTrigger>
-
-                    <DialogContent className="sm:max-w-[425px]">
-                      <DialogHeader>
-                        <DialogTitle>Editar Cliente</DialogTitle>
-                        <DialogDescription>
-                          Realiza los cambios en el perfil del cliente.
-                        </DialogDescription>
-                      </DialogHeader>
-                      {/* Formulario dentro del Dialog */}
-                      <div className="space-y-4">
-                        <div>
-                          <label>Nombre</label>
-                          <Input
-                            type="text"
-                            value={editingCliente?.nombre || ""}
-                            onChange={(e) =>
-                              setEditingCliente({
-                                ...editingCliente!,
-                                nombre: e.target.value,
-                              })
-                            }
-                          />
-                        </div>
-                        <div>
-                          <label>Email</label>
-                          <Input
-                            type="email"
-                            value={editingCliente?.email || ""}
-                            onChange={(e) =>
-                              setEditingCliente({
-                                ...editingCliente!,
-                                email: e.target.value,
-                              })
-                            }
-                          />
-                        </div>
-                        <div>
-                          <label>Teléfono</label>
-                          <Input
-                            type="text"
-                            value={editingCliente?.telefono || ""}
-                            onChange={(e) =>
-                              setEditingCliente({
-                                ...editingCliente!,
-                                telefono: e.target.value,
-                              })
-                            }
-                          />
-                        </div>
-                        <div>
-                          <label>Fecha de Registro</label>
-                          <Input
-                            type="date"
-                            value={editingCliente?.fecha_registro || ""}
-                            onChange={(e) =>
-                              setEditingCliente({
-                                ...editingCliente!,
-                                fecha_registro: e.target.value,
-                              })
-                            }
-                          />
-                        </div>
-                        <div>
-                          <label>Estado</label>
-                          <select
-                            value={editingCliente?.estado || ""}
-                            onChange={(e) =>
-                              setEditingCliente({
-                                ...editingCliente!,
-                                estado: e.target.value,
-                              })
-                            }
-                            className="block w-full p-2 border rounded-md"
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      {/* Botón que abre el Dialog para editar */}
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button
+                            onClick={() => setEditingCliente(cliente)}
+                            variant="secondary"
+                            className="mr-2"
                           >
-                            <option value="nuevo">Nuevo</option>
-                            <option value="VIP">VIP</option>
-                            <option value="Frecuente">Frecuente</option>
-                          </select>
-                        </div>
-                      </div>
-                      <DialogFooter>
-                        <Button
-                          onClick={() => {
-                            updateCliente();
-                            setEditingCliente(null); // Cierra el formulario
-                          }}
-                        >
-                          Guardar Cambios
-                        </Button>
-                        <Button
-                          variant="secondary"
-                          onClick={() => setEditingCliente(null)} // Cierra el dialog
-                        >
-                          Cancelar
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
+                            Editar
+                          </Button>
+                        </DialogTrigger>
 
-                  {/* Botón de Eliminar */}
-                  <Button
-                    onClick={() => deleteCliente(cliente.cliente_id)}
-                    disabled={loading}
-                    variant="destructive"
-                  >
-                    Eliminar
-                  </Button>
+                        <DialogContent className="sm:max-w-[425px]">
+                          <DialogHeader>
+                            <DialogTitle>Editar Cliente</DialogTitle>
+                            <DialogDescription>
+                              Realiza los cambios en el perfil del cliente.
+                            </DialogDescription>
+                          </DialogHeader>
+                          {/* Formulario dentro del Dialog */}
+                          <div className="space-y-4">
+                            <div>
+                              <label>Nombre</label>
+                              <Input
+                                type="text"
+                                value={editingCliente?.nombre || ""}
+                                onChange={(e) =>
+                                  setEditingCliente({
+                                    ...editingCliente!,
+                                    nombre: e.target.value,
+                                  })
+                                }
+                              />
+                            </div>
+                            <div>
+                              <label>Email</label>
+                              <Input
+                                type="email"
+                                value={editingCliente?.email || ""}
+                                onChange={(e) =>
+                                  setEditingCliente({
+                                    ...editingCliente!,
+                                    email: e.target.value,
+                                  })
+                                }
+                              />
+                            </div>
+                            <div>
+                              <label>Teléfono</label>
+                              <Input
+                                type="text"
+                                value={editingCliente?.telefono || ""}
+                                onChange={(e) =>
+                                  setEditingCliente({
+                                    ...editingCliente!,
+                                    telefono: e.target.value,
+                                  })
+                                }
+                              />
+                            </div>
+                            <div>
+                              <label>Fecha de Registro</label>
+                              <Input
+                                type="date"
+                                value={editingCliente?.fecha_registro || ""}
+                                onChange={(e) =>
+                                  setEditingCliente({
+                                    ...editingCliente!,
+                                    fecha_registro: e.target.value,
+                                  })
+                                }
+                              />
+                            </div>
+                            <div>
+                              <label>Estado</label>
+                              <select
+                                value={editingCliente?.estado || ""}
+                                onChange={(e) =>
+                                  setEditingCliente({
+                                    ...editingCliente!,
+                                    estado: e.target.value,
+                                  })
+                                }
+                                className="block w-full p-2 border rounded-md"
+                              >
+                                <option value="nuevo">Nuevo</option>
+                                <option value="VIP">VIP</option>
+                                <option value="Frecuente">Frecuente</option>
+                              </select>
+                            </div>
+                          </div>
+                          <DialogFooter>
+                            <Button
+                              onClick={() => {
+                                updateCliente();
+                                setEditingCliente(null); // Cierra el formulario
+                              }}
+                            >
+                              Guardar Cambios
+                            </Button>
+                            <Button
+                              variant="secondary"
+                              onClick={() => setEditingCliente(null)} // Cierra el dialog
+                            >
+                              Cancelar
+                            </Button>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
+
+                      {/* Botón de Eliminar */}
+                      <Button
+                        onClick={() => deleteCliente(cliente.cliente_id)}
+                        disabled={loading}
+                        variant="destructive"
+                      >
+                        Eliminar
+                      </Button>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </TableCell>
               </TableRow>
             ))

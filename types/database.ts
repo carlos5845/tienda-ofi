@@ -47,7 +47,10 @@ export type DetalleVenta = {
   cantidad: number;
   subtotal: number;
 };
-
+export type ProductoVendido = {
+  producto: string;
+  total_vendido: string | number;
+};
 //VentasMensuales
 export type VentasMensuales = {
   mes: string;

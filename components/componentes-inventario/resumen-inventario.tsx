@@ -73,12 +73,15 @@ export function ResumenInventario() {
         // Asignar resultados con validación
         setTotalPrendas(totalPrendasData?.toString() || "0");
         setPrendasAgotadas(prendasAgotadasData?.toString() || "0");
+
+        // Asignar el nombre del producto más vendido
         setPrendaMasVendida(
-          prendaMasVendidaData?.[0]?.producto_id?.toString() || "No disponible"
+          prendaMasVendidaData?.[0]?.producto || "No disponible"
         );
+
+        // Asignar el nombre del producto menos vendido
         setPrendaMenosVendida(
-          prendaMenosVendidaData?.[0]?.producto_id?.toString() ||
-            "No disponible"
+          prendaMenosVendidaData?.[0]?.producto || "No disponible"
         );
       } catch (err) {
         console.error("Error al cargar estadísticas:", err);

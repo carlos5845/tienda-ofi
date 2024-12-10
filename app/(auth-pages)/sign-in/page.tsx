@@ -8,7 +8,7 @@ import { rowdies } from "@/app/ui/fonts";
 export default async function Login(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
   return (
-    <div className="grid grid-cols-3 grid-rows-1 gap-4 mt-28">
+    <div className="grid grid-cols-3 grid-rows-1 gap-4 mt-28 mb-32">
       <div className="col-span-2 flex flex-col justify-center items-center">
         <article>
           <p className={`${rowdies.className} font-semibold text-4xl `}>
@@ -53,7 +53,10 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
               placeholder="Tu contraseña"
               required
             />
-            <SubmitButton pendingText="Signing In..." formAction={signInAction}>
+            <SubmitButton
+              pendingText="Iniciando sesión..."
+              formAction={signInAction}
+            >
               Iniciar Sesion
             </SubmitButton>
             <FormMessage message={searchParams} />
