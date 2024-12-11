@@ -3,6 +3,8 @@ import { TablaProductos } from "@/components/componentes-inventario/tabla-produc
 import { GraficoProductosVendidos } from "@/components/componentes-inventario/grafico-productos-vendidos";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import InventarioForm from "@/components/componentes-inventario/inventarioform";
 import {
   Dialog,
@@ -40,7 +42,11 @@ export default function InventarioPage() {
       </div>
       <ResumenInventario />
       <div className="grid gap-4 grid-cols-1">
-        <TablaProductos />
+        <Card>
+          <CardContent>
+            <TablaProductos />
+          </CardContent>
+        </Card>
         <GraficoProductosVendidos />
       </div>
     </div>

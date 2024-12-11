@@ -24,24 +24,30 @@ export default function VentasPage() {
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
-      <h2 className="text-3xl font-bold tracking-tight">Ventas</h2>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button variant="outline">Agregar venta</Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Agregar Nueva Venta</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
-            </DialogDescription>
-          </DialogHeader>
-          {/* Formulario para agregar nuevas ventas */}
-          <div className="mb-8">
-            <FormularioVentas onRefresh={refreshVentas} />
-          </div>
-        </DialogContent>
-      </Dialog>
+      <div className="flex justify-between">
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight">Gestion de Ventas</h2>
+        </div>
+        <div>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="">
+                Agregar venta
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Agregar Nueva Venta</DialogTitle>
+                <DialogDescription></DialogDescription>
+              </DialogHeader>
+              {/* Formulario para agregar nuevas ventas */}
+              <div className="mb-8">
+                <FormularioVentas onRefresh={refreshVentas} />
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
+      </div>
       {/* Resumen de ventas */}
       <ResumenVentas />
 

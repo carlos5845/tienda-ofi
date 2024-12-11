@@ -19,7 +19,7 @@ export function DashboardNavbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex  flex-col lg:space-x-0 lg:space-y-1">
+    <nav className="flex  flex-col lg:space-x-0 lg:space-y-1  p-4">
       {navItems.map((item) => (
         <Button
           key={item.href}
@@ -33,7 +33,7 @@ export function DashboardNavbar() {
           asChild
         >
           <Link href={item.href}>
-            <item.icon className="mr-2 h-4 w-4" />
+            <item.icon className="my-4 h-4 w-4" />
             {item.name}
           </Link>
         </Button>
@@ -41,3 +41,4 @@ export function DashboardNavbar() {
     </nav>
   );
 }
+//asdasd

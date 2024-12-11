@@ -13,7 +13,7 @@ export default function LandingPage() {
             className={`${rowdies} text-5xl md:text-7xl font-extrabold text-gray-900 mb-4`}
           >
             Sistema de Gestión{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-cloud-burst-700 to-violet-500">
+            <span className="bg-clip-text text-transparent animate-spin bg-gradient-to-r from-cloud-burst-700 to-violet-500">
               Estiloo Urbano
             </span>
           </h1>

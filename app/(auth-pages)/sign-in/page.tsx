@@ -9,13 +9,14 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
   return (
     <div className="grid grid-cols-3 grid-rows-1 gap-4 mt-28 mb-32">
-      <div className="col-span-2 flex flex-col justify-center items-center">
+      <div className="col-span-2 flex flex-col justify-center items-center p-4">
         <article>
-          <p className={`${rowdies.className} font-semibold text-4xl `}>
-            "Bienvenido al panel de gestión de Estiloo Urbano, donde puedes
-            administrar y optimizar cada aspecto de la tienda. "
+          <p className={`${rowdies.className}  text-7xl mb-4`}>
+            Bienvenido al panel de{" "}
+            <span className="text-blue-400">Estiloo Urbano</span>, donde
+            gestionas y optimizas la tienda.
           </p>
-          <p>
+          <p className="text-2xl">
             Accede a herramientas avanzadas para mantener el inventario,
             gestionar pedidos y ofrecer la mejor experiencia a nuestros
             clientes."
@@ -23,7 +24,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
         </article>
       </div>
 
-      <div className="flex justify-center items-center col-span-1">
+      <div className="flex justify-center items-center col-span-1 p-4">
         <form className="flex-1 flex flex-col max-w-64">
           <h1 className="text-2xl font-medium">Iniciar Sesion</h1>
           <p className="text-sm text-foreground">

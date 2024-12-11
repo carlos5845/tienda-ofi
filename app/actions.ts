@@ -15,7 +15,7 @@ export const signUpAction = async (formData: FormData) => {
     return encodedRedirect(
       "error",
       "/sign-up",
-      "Email and password are required"
+      "Se requiere correo electrónico y contraseña"
     );
   }
 
@@ -34,7 +34,7 @@ export const signUpAction = async (formData: FormData) => {
     return encodedRedirect(
       "success",
       "/sign-up",
-      "Thanks for signing up! Please check your email for a verification link."
+      "¡Gracias por registrarte! Por favor revise su correo electrónico para obtener un enlace de verificación."
     );
   }
 };
@@ -63,7 +63,11 @@ export const forgotPasswordAction = async (formData: FormData) => {
   const callbackUrl = formData.get("callbackUrl")?.toString();
 
   if (!email) {
-    return encodedRedirect("error", "/forgot-password", "Email is required");
+    return encodedRedirect(
+      "error",
+      "/forgot-password",
+      "Se requiere correo electrónico"
+    );
   }
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -75,7 +79,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
     return encodedRedirect(
       "error",
       "/forgot-password",
-      "Could not reset password"
+      "No se pudo restablecer la contraseña"
     );
   }
 
@@ -86,7 +90,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
   return encodedRedirect(
     "success",
     "/forgot-password",
-    "Check your email for a link to reset your password."
+    "Revise su correo electrónico para obtener un enlace para restablecer su contraseña."
   );
 };
 
@@ -100,7 +104,7 @@ export const resetPasswordAction = async (formData: FormData) => {
     encodedRedirect(
       "error",
       "/protected/reset-password",
-      "Password and confirm password are required"
+      "Se requiere contraseña y confirmación de contraseña."
     );
   }
 
@@ -108,7 +112,7 @@ export const resetPasswordAction = async (formData: FormData) => {
     encodedRedirect(
       "error",
       "/protected/reset-password",
-      "Passwords do not match"
+      "Las contraseñas no coinciden"
     );
   }
 
@@ -120,11 +124,11 @@ export const resetPasswordAction = async (formData: FormData) => {
     encodedRedirect(
       "error",
       "/protected/reset-password",
-      "Password update failed"
+      "Error al actualizar la contraseña"
     );
   }
 
-  encodedRedirect("success", "/protected/reset-password", "Password updated");
+  encodedRedirect("success", "/protected/reset-password", "Contraseña actualizada");
 };
 
 export const signOutAction = async () => {
