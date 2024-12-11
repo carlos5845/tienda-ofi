@@ -29,13 +29,14 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
 import { Cliente } from "@/types/database";
 import { Input } from "../ui/input";
-import { Label } from "@radix-ui/react-select";
 import { Badge } from "../ui/badge";
 export default function ClientTable() {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(false);
   const [searchClients, setSearchClients] = useState("");
   const [editingCliente, setEditingCliente] = useState<Cliente | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const filterClients = clientes.filter((cliente) =>
     cliente.nombre.toLowerCase().includes(searchClients.toLowerCase())
   );
@@ -162,10 +163,16 @@ export default function ClientTable() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                       {/* Botón que abre el Dialog para editar */}
-                      <Dialog>
+                      <Dialog
+                        open={isDialogOpen}
+                        onOpenChange={setIsDialogOpen}
+                      >
                         <DialogTrigger asChild>
                           <Button
-                            onClick={() => setEditingCliente(cliente)}
+                            onClick={() => {
+                              setEditingCliente(cliente);
+                              setIsDialogOpen(true);
+                            }}
                             variant="secondary"
                             className="mr-2"
                           >
@@ -256,14 +263,18 @@ export default function ClientTable() {
                             <Button
                               onClick={() => {
                                 updateCliente();
-                                setEditingCliente(null); // Cierra el formulario
+                                setEditingCliente(null); // Limpia el cliente en edición
+                                setIsDialogOpen(false); // Cierra el diálogo
                               }}
                             >
                               Guardar Cambios
                             </Button>
                             <Button
                               variant="secondary"
-                              onClick={() => setEditingCliente(null)} // Cierra el dialog
+                              onClick={() => {
+                                setEditingCliente(null); // Limpia el cliente en edición
+                                setIsDialogOpen(false); // Cierra el diálogo
+                              }}
                             >
                               Cancelar
                             </Button>

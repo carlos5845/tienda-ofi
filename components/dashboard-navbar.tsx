@@ -14,20 +14,20 @@ const navItems = [
   { name: "Inventario", href: "/protected/inventario", icon: Package },
   { name: "Facturación", href: "/protected/facturacion", icon: FileText },
 ];
-
+console.log(navItems);
 export function DashboardNavbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex  flex-col lg:space-x-0 lg:space-y-1  p-4">
+    <nav className="flex  flex-col  lg:space-y-1  p-2 ">
       {navItems.map((item) => (
         <Button
           key={item.href}
           variant="ghost"
           className={cn(
-            "justify-start",
+            "justify-start font-semibold text-lg px-2",
             pathname === item.href
-              ? "bg-muted hover:bg-muted"
+              ? "bg-muted hover:bg-slate-300 hover:text-black"
               : "hover:bg-transparent hover:underline"
           )}
           asChild
