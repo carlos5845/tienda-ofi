@@ -3,7 +3,6 @@ import { createClient } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { DashboardNavbar } from "@/components/dashboard-navbar";
 import DashboardWelcome from "@/components/componentes-inicio/incio";
 export default async function ProtectedPage() {
   const supabase = await createClient();

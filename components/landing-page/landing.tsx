@@ -8,6 +8,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b ">
       <main className={`${roboto} container mx-auto px-4 py-16`}>
+      
         <div className="text-center mb-4">
           <h1
             className={`${rowdies} text-5xl md:text-7xl font-extrabold text-gray-900 mb-4`}

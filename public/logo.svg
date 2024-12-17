@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
+  <!-- Background -->
+  <rect width="300" height="200" fill="#1a1a1a"/>
+  
+  <!-- Stylized Text -->
+  <text x="150" y="100" 
+        text-anchor="middle" 
+        font-family="Arial Black, sans-serif" 
+        font-size="40" 
+        font-weight="bold" 
+        fill="#ffffff">
+    ESTILOO
+  </text>
+  
+  <!-- Urban-style graphic element -->
+  <path d="M50 150 L100 100 L150 150 L200 100 L250 150" 
+        fill="none" 
+        stroke="#00ff00" 
+        stroke-width="5" 
+        stroke-linecap="round"/>
+  
+  <!-- Graffiti-inspired underline -->
+  <path d="M75 160 Q150 180 225 160" 
+        fill="none" 
+        stroke="#00ff00" 
+        stroke-width="3" 
+        stroke-linecap="round"/>
+  
+  <!-- Small urban-style tags -->
+  <text x="270" y="190" 
+        font-family="Arial, sans-serif" 
+        font-size="10" 
+        fill="#00ff00"
+        text-anchor="end">
+    URBANO
+  </text>
+</svg>

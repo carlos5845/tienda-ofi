@@ -106,12 +106,12 @@ export function TablaProductos() {
         </DialogContent>
       </Dialog>
 
-      <div className="flex items-center justify-end py-4">
+      <div className="flex items-center  justify-end py-4">
         <Input
           placeholder="Buscar productos..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="max-w-sm"
+          className="w-full"
         />
         <Button className="ml-4" onClick={fetchProductos} disabled={loading}>
           <Search className="mr-2 h-4 w-4" />
