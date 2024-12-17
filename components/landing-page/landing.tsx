@@ -8,38 +8,37 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b ">
       <main className={`${roboto} container mx-auto px-4 py-16`}>
-      
         <div className="text-center mb-4">
           <h1
-            className={`${rowdies} text-5xl md:text-7xl font-extrabold text-gray-900 mb-4`}
+            className={`${rowdies} text-5xl md:text-7xl font-extrabold text-gray-900 mb-4 dark:text-gray-300`}
           >
             Sistema de Gestión{" "}
             <span className="bg-clip-text text-transparent animate-spin bg-gradient-to-r from-cloud-burst-700 to-violet-500">
               Estiloo Urbano
             </span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-700 mb-0">
+          <p className="text-xl md:text-2xl text-gray-700 mb-0 dark:text-gray-400">
             Tu tienda de moda urbana con nuestro sistema integral de gestión
           </p>
         </div>
         <div className="flex gap-2 justify-center items-center mb-5 ">
           <div>
-            <Button className="bg-cloud-burst-600 hover:bg-cloud-burst-500 ease-out duration-300">
+            <Button className="bg-cloud-burst-600 hover:bg-cloud-burst-500 ease-out duration-300 dark:text-inherit">
               <Link href="/sign-in">Iniciar Sesion</Link>
             </Button>
           </div>
           <div>
-            <Button className="bg-cloud-burst-600 hover:bg-cloud-burst-500">
+            <Button className="bg-cloud-burst-600 hover:bg-cloud-burst-500 dark:text-inherit">
               <Link href="/sign-up">Registrarse</Link>
             </Button>
           </div>
         </div>
 
         <section className="mb-16 mt-14">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-8 dark:text-slate-400  ">
             Características Principales
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 ">
             {[
               {
                 title: "Inventario",
@@ -68,7 +67,7 @@ export default function LandingPage() {
                   "Tener un sistema de alertas puede evitar que se te acaben los productos más populares.",
               },
             ].map((feature, index) => (
-              <Card key={index} className="bg-white border-blue-200 shadow-md">
+              <Card key={index} className="bg-white border-blue-200 shadow-md dark:bg-black ">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2 text-blue-600">
                     <feature.icon className="h-6 w-6" />
@@ -76,7 +75,7 @@ export default function LandingPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600">{feature.description}</p>
+                  <p className="text-gray-600 dark:text-slate-300">{feature.description}</p>
                 </CardContent>
               </Card>
             ))}
