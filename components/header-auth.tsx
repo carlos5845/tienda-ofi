@@ -47,25 +47,34 @@ export default async function AuthButton() {
     );
   }
   return user ? (
-    <div className="flex items-center gap-4">
-      Hola, {user.email}!
+    <div className="flex flex-wrap items-center gap-2 font-semibold text-sm sm:text-base sm:flex sm:justify-end justify-end ">
+      <span className="truncate max-w-full">Hola, {user.email}!</span>
       <form action={signOutAction}>
-        <Button type="submit" variant={"outline"}>
-          Cerrar Sesion
+        <Button
+          type="submit"
+          variant={"outline"}
+          className="text-xs sm:text-sm px-2 sm:px-4 "
+        >
+          Cerrar Sesión
         </Button>
       </form>
     </div>
   ) : (
-    <div className="flex gap-2">
-      <Button asChild size="sm" disabled className="bg-white border-2 text-black hover:bg-transparent ">
+    <div className="flex flex-col sm:flex-row gap-2 ">
+      <Button
+        asChild
+        size="sm"
+        disabled
+        className="bg-white border-2 text-black hover:bg-black hover:text-white "
+      >
         <Link href="/sign-in">Iniciar sesión</Link>
       </Button>
 
       <Button
         asChild
         size="sm"
-        variant={"default"}
-        className=" bg-cloud-burst-600 text-white hover:bg-cloud-burst-500"
+        variant="default"
+        className="bg-cloud-burst-600 text-white hover:bg-cloud-burst-500"
       >
         <Link href="/sign-up">Registrarse</Link>
       </Button>

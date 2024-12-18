@@ -19,7 +19,7 @@ export function DashboardNavbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex  flex-col  lg:space-y-1  p-2 ">
+    <nav className="flex  flex-col  lg:space-y-1  p-2 mt-6">
       {navItems.map((item) => (
         <Button
           key={item.href}

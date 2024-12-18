@@ -21,9 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.className} suppressHydrationWarning
-    
-    >
+    <html lang="en" className={GeistSans.className} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/logo.svg" />
       </head>
@@ -36,8 +34,8 @@ export default function RootLayout({
         >
           <main className="min-h-screen flex flex-col items-center">
             <div className="flex-1 w-full flex flex-col gap-2 items-center">
-              <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16 mb-0">
-                <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
+              <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16  mt-2">
+                <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm ">
                   <div className="flex gap-5 items-center font-extrabold text-2xl">
                     <Box />
                     <Link href={"/"}>ESTILOO URBANO</Link>
