@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -47,6 +47,8 @@ const formSchema = z.object({
 export function FormularioFactura() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [clientes, setClientes] = useState<any[]>([]); 
+  const [isLoading, setIsLoading] = useState(true); 
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -59,6 +61,22 @@ export function FormularioFactura() {
       fecha_vencimiento: "",
     },
   });
+
+  useEffect(() => {
+    const fetchClientes = async () => {
+      try {
+        setIsLoading(true);
+        const { data, error } = await supabase.from("clientes").select("cliente_id, nombre");
+        if (error) throw error;
+        setClientes(data || []);
+      } catch (error) {
+        console.error("Error al cargar los clientes:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchClientes();
+  }, []);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
@@ -85,11 +103,17 @@ export function FormularioFactura() {
     }
   };
 
+  // Solo renderizamos el formulario después de que los clientes hayan sido cargados
+  if (isLoading) {
+    return (
+      <div className="p-4 text-sm bg-gray-100 text-gray-800">Cargando clientes...</div>
+    );
+  }
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 w-screen"
+        className="w-screen space-y-4"
       >
         {message && (
           <div
@@ -124,9 +148,35 @@ export function FormularioFactura() {
           name="cliente_id"
           render={({ field }) => (
             <FormItem className="max-w-2xl">
-              <FormLabel>ID del Cliente</FormLabel>
+              <FormLabel>Cliente</FormLabel>
               <FormControl>
-                <Input type="number" placeholder="ID del cliente" {...field} />
+                <Select
+                  onValueChange={(value) => field.onChange(value)}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Seleccione un cliente" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {isLoading ? (
+                      <SelectItem value="" disabled>
+                        Cargando clientes...
+                      </SelectItem>
+                    ) : clientes.length > 0 ? (
+                      clientes.map((cliente) => (
+                        <SelectItem key={cliente.cliente_id} value={cliente.cliente_id.toString()}>
+                          {cliente.nombre}
+                        </SelectItem>
+                      ))
+                    ) : (
+                      <SelectItem value="" disabled>
+                        No hay clientes disponibles
+                      </SelectItem>
+                    )}
+                  </SelectContent>
+                </Select>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -200,4 +250,3 @@ export function FormularioFactura() {
     </Form>
   );
 }
-//asdasdasaaaaaaaa

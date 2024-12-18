@@ -35,7 +35,7 @@ export default function FacturacionPage() {
             </CardContent>
           </Card>
         </TabsContent>
-        <TabsContent value="nueva">
+        <TabsContent value="nueva" className="">
           <Card>
             <CardHeader>
               <CardTitle>Crear Nueva Factura</CardTitle>

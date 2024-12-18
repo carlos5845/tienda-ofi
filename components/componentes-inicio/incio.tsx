@@ -16,7 +16,7 @@ export default function DashboardWelcome() {
 
   return (
     <div className="container mx-auto px-4 py-8 text-black">
-      <Card className="bg-gradient-to-r from-cyan-500 to-blue-500">
+      <Card className="bg-gradient-to-r from-cyan-600 to-blue-400">
         <CardHeader>
           <CardTitle className="text-3xl font-bold text-black">
             ¡Bienvenido a Estiloo Urbano!
