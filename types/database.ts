@@ -1,3 +1,4 @@
+// Cliente
 export type Cliente = {
   cliente_id: number;
   nombre: string;
@@ -6,7 +7,6 @@ export type Cliente = {
   fecha_registro: string;
   estado: string;
 };
-// Cliente
 
 // Venta
 export type Venta = {
@@ -15,6 +15,7 @@ export type Venta = {
   fecha: string;
   monto: number;
   estado: string;
+  clienteNombre?: string; // Add this line
 };
 
 // Inventario

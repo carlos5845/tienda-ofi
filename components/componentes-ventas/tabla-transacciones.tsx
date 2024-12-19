@@ -19,12 +19,43 @@ export function TablaTransacciones() {
 
   const fetchVentas = async () => {
     setLoading(true);
-    const { data, error } = await supabase.from("ventas").select("*");
-    if (error) {
-      console.error("Error al cargar ventas:", error);
+
+    // Primero, obtenemos las ventas
+    const { data: ventasData, error: ventasError } = await supabase
+      .from("ventas")
+      .select("venta_id, cliente_id, fecha, monto, estado");
+
+    if (ventasError) {
+      console.error("Error al cargar ventas:", ventasError);
+      setLoading(false);
       return;
     }
-    setVentas(data || []);
+
+    // Luego, obtenemos los clientes, usando los 'cliente_id' de las ventas
+    const clienteIds = ventasData.map((venta) => venta.cliente_id);
+    const { data: clientesData, error: clientesError } = await supabase
+      .from("clientes")
+      .select("cliente_id, nombre")
+      .in("cliente_id", clienteIds);
+
+    if (clientesError) {
+      console.error("Error al cargar clientes:", clientesError);
+      setLoading(false);
+      return;
+    }
+
+    // Asociar los nombres de los clientes a las ventas
+    const ventasConClientes = ventasData.map((venta) => {
+      const cliente = clientesData.find(
+        (cliente) => cliente.cliente_id === venta.cliente_id
+      );
+      return {
+        ...venta,
+        clienteNombre: cliente ? cliente.nombre : "Desconocido",
+      };
+    });
+
+    setVentas(ventasConClientes);
     setLoading(false);
   };
 
@@ -40,7 +71,7 @@ export function TablaTransacciones() {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Cliente ID</TableHead>
+          <TableHead>Cliente</TableHead>
           <TableHead>Monto</TableHead>
           <TableHead>Estado</TableHead>
           <TableHead>Fecha</TableHead>
@@ -49,7 +80,7 @@ export function TablaTransacciones() {
       <TableBody>
         {ventas.map((venta) => (
           <TableRow key={venta.venta_id}>
-            <TableCell>{venta.cliente_id}</TableCell>
+            <TableCell>{venta.clienteNombre}</TableCell>
             <TableCell>${venta.monto.toFixed(2)}</TableCell>
             <TableCell>
               <Badge
@@ -57,8 +88,8 @@ export function TablaTransacciones() {
                   venta.estado === "completada"
                     ? "success"
                     : venta.estado === "pendiente"
-                    ? "warning"
-                    : "destructive"
+                      ? "warning"
+                      : "destructive"
                 }
               >
                 {venta.estado}
@@ -71,3 +102,4 @@ export function TablaTransacciones() {
     </Table>
   );
 }
+//asdasd
